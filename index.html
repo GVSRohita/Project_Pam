@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title> Neighborhood map </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,38 +19,43 @@
                 <div class="row">
                     <div class="col-md-12" style="text-align: center;"><h2>Neighbourhood Map</h2></div>
                 </div>
-            </header>            
+            </header>
             <main>
-                <div class="col-md-9 col-sm-12 col-xs-12" style="min-height: 600px; max-height: 800px">
-                    <div id="map" style="min-height: 600px; max-height: 800px"></div>
+                <div class="col-md-9 col-sm-12 col-xs-12 map-class">
+                    <div id="map" class="map-class"></div>
                 </div>
-            </main>      
-            <section> 
+            </main>
+            <section>
                 <div class="row">
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-
+                    <div class="col-md-3 col-sm-12 col-xs-12 info-box">
+                        <div class="wiki-links" style="height: 30px;">
+                            <h4 id="wikilinksHeading">Prominent Places in Neighbourhood</h4>
+                        </div>
                         <div>
                             <!--input box for getting filtered key word. It uses knockout function-->
-                            <input id="idFilter" type="text" placeholder="Filter the list based on name of location"  data-bind="value: filterTitle, valueUpdate: 'keyup', event: { keyup: populatePlaceTitles }" autocomplete="off"/>            
+                            <input id="idFilter" type="text" placeholder="Filter the list based on name of location"  data-bind="value: filterTitle, valueUpdate: 'keyup', event: { keyup: populatePlaceTitles }" autocomplete="off"/>
                         </div>
                         <div id ="idDivListPlaces">
                             <!--Ordered list for holding titles of places to be marked-->
                             <ul id="idListPlaces" data-bind="foreach: myObservableArray">
                                 <li>
                                     <span data-bind="text: $data.title, click: $parent.showInfoWindow.bind($data)"></span>
-
                                 </li>
                             </ul>
                         </div>
                         <!--To load the third party API-->
                         <div class="wiki-links">
-                            <h4 id="wikipediaheader">Wikipedia Links</h4>
+                            <h4 id="wikilinksHeading">Wikipedia Links</h4>
                             <ul id="wikipedialinks" data-bind="foreach: wikiLinksArrayKO">
                                 <li>
                                     <span data-bind="text: $data.title, click: $parent.openURL.bind($data)"></span>
                                 </li>
                             </ul>
                         </div>
+                        <div id="authorDetails">
+                            <h5>Author: <a href="https://gvsrohita.github.io/OnlineResume/" target="_blank">Venkata Sri Rohita Goparaju</a></h5>
+                        </div>
+
                     </div>
                 </div>
             </section>

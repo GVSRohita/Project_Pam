@@ -20,6 +20,7 @@ var marker;
 var markers = [];
 //info window to show the details of clicked location
 var largeInfowindow;
+var defaultIcon;
 //map bounds
 var bounds;
 //string for filtering
@@ -27,7 +28,7 @@ var filterTitle;
 //wikipedia links for the clicked location
 var chosenLocation;
 //var wikiLinks = {url: 'dummy.com'};
-var wikiLink = function(title_, URL_) {
+var wikiLink = function (title_, URL_) {
     this.title = title_;
     this.url = URL_;
 };
@@ -47,6 +48,7 @@ function initMap() {
         center: {lat: 17.6868, lng: 83.2185},
         zoom: 13
     });
+    defaultIcon = makeMarkerIcon('0091ff');
     addMarkers();
 }
 //to add the map markers
@@ -61,10 +63,20 @@ function addMarkers() {
             position: myObservableArray()[i].location,
             title: myObservableArray()[i].title,
             animation: google.maps.Animation.DROP,
+            icon: defaultIcon,
             id: i
         });
         markers.push(marker);
+        marker.addListener('mouseover', function () {
+            var highlightedIcon = makeMarkerIcon('FFFFFF');
+            this.setIcon(highlightedIcon);
+        });
+        marker.addListener('mouseout', function () {
+            this.setIcon(defaultIcon);
+        });
         marker.addListener('click', function () {
+            var clickedIcon = makeMarkerIcon('FFFF24');
+            this.setIcon(clickedIcon);
             populateInfoWindow(this, largeInfowindow);
         });
         bounds.extend(markers[i].position);
@@ -96,7 +108,8 @@ var viewModal = function () {
             map: map,
             position: chosenLocation.location,
             title: chosenLocation.title,
-            animation: google.maps.Animation.HIGHLIGHT
+            animation: google.maps.Animation.DROP,
+            icon: defaultIcon
         });
         populateInfoWindow(marker, largeInfowindow);
         //to show the related wikipedia links(as third party API)
@@ -180,4 +193,16 @@ function populateInfoWindow(marker, infowindow) {
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
     }
+}
+
+
+function makeMarkerIcon(markerColor) {
+    var markerImage = new google.maps.MarkerImage(
+            'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
+            '|40|_|%E2%80%A2',
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(10, 34),
+            new google.maps.Size(21, 34));
+    return markerImage;
 }

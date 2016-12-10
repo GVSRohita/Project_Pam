@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+}
+
+html,body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+}
+
+body{
+    font-weight: 300;
+    background-color: gray;
+    /*margin-bottom: 30px;*/
+    color: #333;
+}
+
+header {
+    height: 75px;
+    width: 100%;
+    margin: auto;
+    background-color: #204d74;
+    display: block;
+}
+
+h2 {
+    font-size: 2em;
+    margin: 0.67em 0;
+    margin: 0;
+    padding-top: 15px;
+    color: white;
+}
+
+.container {
+    background-color: darkgray;
+}
+
+#map {
+    background-color: #E9E5DC;
+    float: left;
+    width: 100%;
+    max-height: 400px;
+}
+
+#pano {
+    width: 300px;
+    height: 300px;
+}
+
+#idDivContainerPlaces {
+    width: 100%;
+    background-color: grey;
+    color: white;
+}
+
+.hamburger {
+    background-color: lightgrey;
+    color: black;
+}
+.wiki-links {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 200px;
+    /*overflow: scroll;*/
+    background-color: darkgrey;
+    color: black;
+}
+
+#idFilter {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #333;
+    color: white;
+}
+
+.input-box{
+    box-shadow: 1px 1px 3px #000;
+}
+
+.wiki-links {
+    box-shadow: 1px 1px 3px #000;
+}
+
+ul {
+    list-style-type:none;
+}
+
+span {
+    cursor:pointer;
+}
+
+ul li:hover {
+    color: blueviolet;
+}
+
+.mapDiv {
+     min-height: 600px;
+     max-height: 800px;
+     padding-left: 0;
+     padding-right: 0;
+}
+
+.info-box {
+    padding-left: 8px;
+}
+
+#map {
+     min-height: 600px;
+     max-height: 800px;
+}
+
+#idDivListPlaces {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 350px;
+    width: 100%;
+    /*overflow: scroll;*/
+}
+
+span {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
