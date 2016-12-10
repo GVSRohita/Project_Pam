@@ -107,6 +107,7 @@ var viewModal = function () {
             if (!(chosenLocation === undefined)) {
                 var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + chosenLocation.title + '&format=json&callback=wikicallback';
                 var wikiRequestTimeout = setTimeout(function () {
+                    alert("failed to get the wikipedia resources");
                     //$wikiElem.text("failed to get the wikipedia resources");
                 }, 80000);
                 $.ajax({
