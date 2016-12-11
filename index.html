@@ -17,7 +17,8 @@
         <div class="container">
             <header>
                 <div class="row">
-                    <div class="col-md-12" style="text-align: center;"><h1>Neighbourhood Map</h1></div>
+                    <div class="col-md-12" style="text-align: center;"><h1>My Neighbourhood Map</h1></div>
+                    <div class="col-md-12" style="height: 20px; color: yellow; text-align: right;"><em><h4>You can add yours too, here :-)&nbsp;</h4></em></div>
                 </div>
             </header>
             <main>
@@ -29,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-12 col-xs-12 info-box">
                         <div class="wiki-links" style="height: 30px;">
-                            <h4 id="wikilinksHeading">Prominent Places in Neighbourhood</h4>
+                            <h4 id="idPlaces">Prominent Places in My Neighbourhood</h4>
                         </div>
                         <div>
                             <!--input box for getting filtered key word. It uses knockout function-->
@@ -46,26 +47,26 @@
                         </div>
                         <!--To load the third party API-->
                         <div class="wiki-links">
-                            <h4 id="wikilinksHeading">Wikipedia Links</h4>
+                            <h4 id="wikilinksHeading">Wikipedia Links for the Chosen Location</h4>
                             <ul id="wikipedialinks" data-bind="foreach: wikiLinksArrayKO">
                                 <li>
                                     <span data-bind="text: $data.title, click: $parent.openURL.bind($data)"></span>
                                 </li>
                             </ul>
                         </div>
-                        <div style="width: 100%; margin: 15px 0 0 0;">
-                            <button id="idBtnFun" class="my-button" data-bind="click:moveTo('#idYourAddress')"><em>The Fun part! Click here to add your locations</em></button>
-                        </div>
                         <div id="authorDetails">
-                            <h5>Author: <a href="https://gvsrohita.github.io/OnlineResume/" target="_blank"><strong>Venkata Sri Rohita Goparaju</strong></a></h5>
+                            <h5>Built by <a href="https://gvsrohita.github.io/OnlineResume/" target="_blank"><strong>Venkata Sri Rohita Goparaju!</strong></a></h5>
+                        </div>
+                        <div id="idDivBtnFun">
+                            <button id="idBtnFun" class="my-button" data-bind="click:moveTo('#idYourAddress')"><em>The Fun part! Click here to go to add your locations</em></button>
                         </div>
                     </div>
                 </div>
             </section>
             <section>
                 <div class="row">
-                    <div class="col-md-5 col-sm-12 col-xs-12">
-                        <input id="idYourAddress" type="text" placeholder="Enter Your Address, click & see magic!" data-bind="value: yourAddress" autocomplete="off"/>
+                    <div id="idDivYourAddress" class="col-md-5 col-sm-12 col-xs-12">
+                        <input id="idYourAddress" type="text" placeholder="Enter Your neighborhood Address, Name, Category, click & see the magic!" data-bind="value: yourAddress" autocomplete="off"/>
                     </div>                    
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <input id="idYourTitle" type="text" placeholder="Name of the location" data-bind="value: yourAddressTitle" autocomplete="off"/>

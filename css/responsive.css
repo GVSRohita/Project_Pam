@@ -7,4 +7,7 @@
     .info-box {
         width: 100%;
     }
+    #idBtnFun, #idDivBtnFun {
+        display: none;
+    }
 }

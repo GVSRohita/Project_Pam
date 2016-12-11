@@ -110,7 +110,7 @@ var viewModal = function () {
     yourAddressTitle = ko.observable();
     yourAddress = ko.observable();
     yourCategory = ko.observable();
-    errorMessage = ko.observable('No Errors');
+    errorMessage = ko.observable('');
     self.populatePlaceTitles = function () {
         myObservableArray([]);
         for (var k = 0; k < locations.length; k++) {
@@ -128,7 +128,7 @@ var viewModal = function () {
         populateInfoWindow('vm', marker, largeInfowindow);
         //to show the related wikipedia links(as third party API)
         self.wikiLinks = ko.observableArray([]);
-        self.bool1 = getWikiLinks(chosenLocation);
+        self.bool1 = getWikiLinks(chosenLocation.title);
     };
     //for opening wikilink    
     self.openURL = function (chosenLoc) {
@@ -146,7 +146,13 @@ var viewModal = function () {
 };
 //applying main ko function
 ko.applyBindings(new viewModal());
-$('html, body').animate({scrollTop: $('.container').offset().top}, 'slow');
+//To enforce a delay of about 3 seconds to scroll to page top. The delay is necessitated
+//for Google api takes some time to populate all the elements.
+window.setTimeout(goToTop, 3000);
+//Initiatlly, to scroll to the top of the page for maximum viewing experience.
+function goToTop() {
+    $('html, body').animate({scrollTop: $('.container').offset().top}, 'slow');
+}
 
 function populateInfoWindow(mvm, marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
@@ -168,7 +174,7 @@ function populateInfoWindow(mvm, marker, infowindow) {
                 var nearStreetViewLocation = data.location.latLng;
                 var heading = google.maps.geometry.spherical.computeHeading(
                         nearStreetViewLocation, marker.position);
-                infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+                infowindow.setContent('<div class="marker-title">' + marker.title + '</div><div id="pano"></div>');
                 var panoramaOptions = {
                     position: nearStreetViewLocation,
                     pov: {
@@ -179,8 +185,8 @@ function populateInfoWindow(mvm, marker, infowindow) {
                 var panorama = new google.maps.StreetViewPanorama(
                         document.getElementById('pano'), panoramaOptions);
             } else {
-                infowindow.setContent('<div>' + marker.title + '</div>' +
-                        '<div>No Street View Found</div>');
+                infowindow.setContent('<div class="marker-title">' + marker.title + '</div>' +
+                        '<div class="marker-msg"><em>No Street View Found</em></div>');
             }
         }
         // Use streetview service to get the closest streetview image within
@@ -193,7 +199,7 @@ function populateInfoWindow(mvm, marker, infowindow) {
                 var latDiff = Math.abs(marker.getPosition().lat() - myObservableArray()[a].location.lat);
                 var lngDiff = Math.abs(marker.getPosition().lng() - myObservableArray()[a].location.lng);
                 if ((latDiff < 0.000001) && (lngDiff < 0.000001)) {
-                    getWikiLinks(myObservableArray()[a]);
+                    getWikiLinks(myObservableArray()[a].title);
                     break;
                 }
             }
@@ -214,8 +220,8 @@ function makeMarkerIcon(markerColor) {
     return markerImage;
 }
 
-function getWikiLinks(chosenLocation) {
-    var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + chosenLocation.title + '&format=json&callback=wikicallback';
+function getWikiLinks(title_) {
+    var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + title_ + '&format=json&callback=wikicallback';
     var wikiRequestTimeout = setTimeout(function () {
         errorMessage('Failed to get the Wikipedia resources in reasonable time period');
         $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
@@ -244,21 +250,31 @@ function getWikiLinks(chosenLocation) {
     return true;
 }
 
-function formLocation(address_, title_, category_) {
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'address': address_}, function (results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-            var latitude = results[0].geometry.location.lat();
-            var longitude = results[0].geometry.location.lng();
-            var locationLatLng = new LocationLatLng(latitude, longitude);
-            var location = new Location(title_, category_, locationLatLng);
-            myObservableArray.push(location);
-            bounds.extend(locationLatLng);
-            map.fitBounds(bounds);
-            setMarker(location);
-            populateInfoWindow('vm', marker, largeInfowindow);
-        }
-    });
+function formLocation(address_, title_, category_) {    
+    if ((address_ === undefined) || (title_ === undefined) || (category_ === undefined)) {
+        composeErrorMsg('Enter Address, Name & Category, and then click the button');
+    } 
+    else {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': address_}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                var locationLatLng = new LocationLatLng(latitude, longitude);
+                var location = new Location(title_, category_, locationLatLng);
+                myObservableArray.push(location);
+                locations.push(location);
+                bounds.extend(locationLatLng);
+                map.fitBounds(bounds);
+                setMarker(location);
+                populateInfoWindow('vm', marker, largeInfowindow);
+                getWikiLinks(title_);
+                composeErrorMsg('');
+            } else {
+                composeErrorMsg('Sorry, Google does not recognize this address. Try another one. Better Luck, next time!');
+            }
+        });
+    }
 }
 
 function setMarker(location) {
@@ -282,4 +298,9 @@ function setMarker(location) {
         this.setIcon(clickedIcon);
         populateInfoWindow('m', this, largeInfowindow);
     });
+}
+
+function composeErrorMsg(errMsg_) {
+    errorMessage(errMsg_);
+    $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
 }
