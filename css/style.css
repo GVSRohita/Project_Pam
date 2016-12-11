@@ -58,12 +58,13 @@ h1 {
     background-color: lightgrey;
     color: black;
 }
+
 .wiki-links {
     margin: 0;
     padding: 0;
     border: 0;
     width: 100%;
-    height: 200px;
+    height: 150px;
     background-color: darkgrey;
     color: black;
 }
@@ -103,7 +104,7 @@ span {
     color: white;
     cursor: pointer;
     overflow: scroll;
-    height: 196px;
+    height: 150px;
 }
 .container{
     background-color: #333;
@@ -140,9 +141,8 @@ h2, h3, h4 {
 #authorDetails {
     padding: 1px 0 0 0;
     background-color: white;
-    margin: 15px 0 0 0px;
     width: 100%;
-    height: 30px;
+    height: 45px;
     text-align: center;
 }
 
@@ -166,4 +166,42 @@ li{
 
 ul{
     padding: 0;
+}
+
+.my-button {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    text-align: center;
+    background-color: #204d74;
+    color: white;
+    cursor: pointer;
+}
+
+.my-button:hover {
+    background-color: #ccc;
+    color: #204d74;
+}
+
+#idBtnFun {
+    width: 100%;
+    height: 35px;
+}
+
+#idYourAddress, #idYourTitle, #idYourCategory, #idBtnYourAddress {
+    border: 5px #222 solid;
+    height: 30px;
+    width: 100%;
+}
+
+input, select {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.col-md-12, .col-md-11, .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2, .col-md-1 {
+    padding: 0;
+    margin: 0;
+    border: 0;
 }
