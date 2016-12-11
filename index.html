@@ -39,7 +39,8 @@
                             <!--Ordered list for holding titles of places to be marked-->
                             <ul id="idListPlaces" data-bind="foreach: myObservableArray">
                                 <li>
-                                    <span data-bind="text: $data.title, click: $parent.showInfoWindow.bind($data)"></span>
+                                    <span data-bind="text: $data.title, click: $parent.showInfoWindow.bind($data)"></span>&nbsp;<span id="idCat" data-bind="text: ' - ' +$data.cat, click: $parent.showInfoWindow.bind($data)"></span>
+
                                 </li>
                             </ul>
                         </div>
@@ -84,7 +85,7 @@
             </section>
             <footer>
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: left;"><span id="idMsg"></span></div>
+                    <div id="idDivErrorMsg" class="col-md-12 col-sm-12 col-xs-12" style="text-align: left;"><span id="idMsg" data-bind="text: errorMessage"></span></div>
                 </div>
             </footer>
         </div>

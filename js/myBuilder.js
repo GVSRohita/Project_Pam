@@ -6,15 +6,15 @@
 //there should be atleast 5 locations, I have placed a total of 9 locations
 //of the prominent places in my neighborhood.
 var locations = [
-    {title: 'kailash giri', location: {lat: 17.7492, lng: 83.3422}},
-    {title: 'simhachalam', location: {lat: 17.7665, lng: 83.2506}},
-    {title: 'Indira Gandhi zoological park', location: {lat: 17.7686, lng: 83.3445}},
-    {title: 'visakha museum', location: {lat: 17.7206, lng: 83.3342}},
-    {title: 'sivaji park', location: {lat: 17.7374, lng: 83.3312}},
-    {title: 'rushikonda beach', location: {lat: 17.7820, lng: 83.3853}},
-    {title: 'ramakrishna beach', location: {lat: 17.7115, lng: 83.3195}},
-    {title: 'hotel daspalla', location: {lat: 17.7106556, lng: 83.3004312}},
-    {title: 'Vizag steel', location: {lat: 17.6333889, lng: 83.1706543}}
+    {title: 'Kailash Giri', cat: "Outing", location: {lat: 17.7492, lng: 83.3422}},
+    {title: 'Simhachalam', cat: "Pilgrim Center", location: {lat: 17.7665, lng: 83.2506}},
+    {title: 'Indira Gandhi Zoological Park', cat: "Outing", location: {lat: 17.7686, lng: 83.3445}},
+    {title: 'Visakha Museum', cat: "Heritage", location: {lat: 17.7206, lng: 83.3342}},
+    {title: 'Sivaji Park', cat: "Park", location: {lat: 17.7374, lng: 83.3312}},
+    {title: 'Rushikonda Beach', cat: "Sun n Sand", location: {lat: 17.7820, lng: 83.3853}},
+    {title: 'Ramakrishna Beach', cat: "Sun n Sand", location: {lat: 17.7115, lng: 83.3195}},
+    {title: 'Hotel Daspalla', cat: "Hotel", location: {lat: 17.7106556, lng: 83.3004312}},
+    {title: 'Vizag Steel Plant', cat: "Industry", location: {lat: 17.6333889, lng: 83.1706543}}
 ];
 var LocationLatLng = function (lat_, lng_) {
     this.lat = lat_;
@@ -48,6 +48,8 @@ var bounds;
 var filterTitle;
 //wikipedia links for the clicked location
 var chosenLocation;
+//
+var errorMessage;
 //var wikiLinks = {url: 'dummy.com'};
 var wikiLink = function (title_, URL_) {
     this.title = title_;
@@ -108,10 +110,11 @@ var viewModal = function () {
     yourAddressTitle = ko.observable();
     yourAddress = ko.observable();
     yourCategory = ko.observable();
+    errorMessage = ko.observable('No Errors');
     self.populatePlaceTitles = function () {
         myObservableArray([]);
         for (var k = 0; k < locations.length; k++) {
-            var n = locations[k].title.search(filterTitle());
+            var n = locations[k].title.toLowerCase().search(filterTitle().toLowerCase());
             if (n >= 0) {
                 myObservableArray.push(locations[k]);
             }
@@ -125,7 +128,7 @@ var viewModal = function () {
         populateInfoWindow('vm', marker, largeInfowindow);
         //to show the related wikipedia links(as third party API)
         self.wikiLinks = ko.observableArray([]);
-        self.bool1 = getWikiLinks(chosenLocation);        
+        self.bool1 = getWikiLinks(chosenLocation);
     };
     //for opening wikilink    
     self.openURL = function (chosenLoc) {
@@ -148,8 +151,6 @@ $('html, body').animate({scrollTop: $('.container').offset().top}, 'slow');
 function populateInfoWindow(mvm, marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker !== marker) {
-        //alert(marker.getPosition().lat());
-        //alert(marker.getPosition().lng());
         // Clear the infowindow content to give the streetview time to load.
         infowindow.setContent('');
         infowindow.marker = marker;
@@ -214,9 +215,10 @@ function makeMarkerIcon(markerColor) {
 }
 
 function getWikiLinks(chosenLocation) {
-    var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + chosenLocation.title + '&format=json&callback=wikicallback';
+    var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + chosenLocation.title + '&format=json&callback=wikicallback';
     var wikiRequestTimeout = setTimeout(function () {
-        //alert("failed to get the wikipedia resources");
+        errorMessage('Failed to get the Wikipedia resources in reasonable time period');
+        $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
     }, 8000);
     $.ajax({
         url: wikiUrl,
@@ -233,9 +235,13 @@ function getWikiLinks(chosenLocation) {
             wikiLinksArrayKO([]);
             wikiLinksArrayKO(wikiLinksArray);
             clearTimeout(wikiRequestTimeout);
+        },
+        error: function (returnval) {
+            errorMessage('Error while retrieving Wikilinks. Return Value: "' + returnval + '", Kindly mail this info to gvsrohita@gmail.com');
+            $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
         }
     });
-    return false;
+    return true;
 }
 
 function formLocation(address_, title_, category_) {
