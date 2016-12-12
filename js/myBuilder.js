@@ -367,7 +367,7 @@ function goToDomLocation(domLocation_, speed_) {
     $('html, body').animate({scrollTop: $(domLocation_).offset().top}, speed_);
 }
 
-//********************** Function call after map is intialized *****************
+//********************** Function call at the beginning ************************
 //
 //applying the bindings using KO based viewmodal
 ko.applyBindings(new viewModal());
