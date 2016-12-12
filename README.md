@@ -20,7 +20,7 @@ In my project, I have used `JavaScript`, `jQuery`, `KnockoutJS`, `Google Maps AP
 You can add your own locations (address, title and category of the location) to the map by following these steps:
 - Enter the Address, Name and Category (Drop down Box) of your location in the three boxes visible at the bottom (If they are not visible on the screen, then either scroll down or click `The Fun part!Click here to add your locations` button)
 - Then `Click` the button to see your location added on my map
-- To start, enter **Taj Mahal, Agra, India** in Address, **Taj Mahal** in Name, **Heritage** in Category and then click the **Button** to add the geographical-marker for the symbol of the epitome of the most important emotion ever assembled by God, that is **Love!** . In addition, you can a lot about it through innumerable wikipedia on the **Taj**
+- To start, enter **Taj Mahal, Agra, India** in _Address_, **Taj Mahal** in _Name_, **Heritage** in _Category_ and then **click** the _Button_ to add the geographical-marker for the symbol of the epitome of the most important emotion ever assembled by God, that is **Love!** . In addition, you can a lot about it through innumerable wikipedia on the **Taj**
 - Isn't it fun?!
 
 ### What I did to achieve the objectives of this project:
