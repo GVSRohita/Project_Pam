@@ -25,4 +25,4 @@ Visit my map [here] (https://gvsrohita.github.io/Project_Pam/)
 
 **HAPPY MAPPING!!!**
 
-https://cloud.githubusercontent.com/assets/22124420/21085506/f384b2bc-c038-11e6-9d6e-7ae60e3d5275.jpg
+![readme-image-1](https://cloud.githubusercontent.com/assets/22124420/21085506/f384b2bc-c038-11e6-9d6e-7ae60e3d5275.jpg)
