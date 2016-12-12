@@ -1,4 +1,4 @@
-Welcome to Neighborhood Map - by G V Sri Rohita
+    Welcome to Neighborhood Map - by G V Sri Rohita
 ========================================================
 
 ## Basic Introduction:
@@ -16,6 +16,15 @@ In my project I have used `JavaScript`, `jQuery`, `KnockoutJS`, `Google Maps API
 - You can also find extra information about the place you would like to visit in the _Relavant Wikipedia links_ provided
 - You can visit my Map on any handy device available near you, be it _laptop, iPad_ or _Mobile_
 
+### My additions to the map:
+You can add your own locations to the map by following the following steps:
+- To add your own locations click the `The Fun part!Click here to add your locations` button
+- Then you can see the input boxes to enter the Address, Name and Category of the location
+- In the first box fill in the complete details along with street and city
+- The second box takes only the name of the location
+- You can also fill in the category in which this location falls in the drop box provided
+- Then `Click` the button to see your added location on my map
+
 #### Sources that helped me build my map:
 - [Google Maps API] (https://developers.google.com/maps/documentation/)
 - [Knockout JS] (http://knockoutjs.com/)
@@ -24,6 +33,3 @@ In my project I have used `JavaScript`, `jQuery`, `KnockoutJS`, `Google Maps API
 Visit my map [here] (https://gvsrohita.github.io/Project_Pam/)
 
 **HAPPY MAPPING!!!**
-
-![readme-image-1](https://cloud.githubusercontent.com/assets/22124420/21085506/f384b2bc-c038-11e6-9d6e-7ae60e3d5275.jpg)
-![readme-image-2](https://gvsrohita.github.io/Classic-Arcade-Game-Clone/images/enemy-bug.png)

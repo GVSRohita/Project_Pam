@@ -2,31 +2,41 @@
     box-sizing: border-box;
 }
 
-div {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
 html,body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Averia Libre', calibri;
-    background-color: gray;
+    background-color: gray;     
 }
 
 body{
     font-weight: 300;
     color: #333;
-    /*margin-bottom: 30px;*/
+}
+
+div {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 header {
     height: 75px;
     background-color: #204d74;
     display: block;
+}
+
+.heading {
+    text-align: center;
+}
+
+.sub-heading {
+    height: 20px;
+    color: peachpuff;
+    font-family: 'Lucida Handwriting', calibri;
+    text-align: right;
 }
 
 h1 {
@@ -62,6 +72,8 @@ h1 {
     height: 150px;
     background-color: darkgrey;
     color: black;
+    height: 30px;
+    padding: 5px 0 0 0;
 }
 
 #idFilter {
@@ -88,6 +100,10 @@ span {
     cursor: pointer;
     overflow: scroll;    
     height: 280px;
+}
+
+ul li:hover {
+    color: blueviolet;
 }
 
 #wikipedialinks {
@@ -148,6 +164,7 @@ a {
 
 a:hover {
     color: blueviolet;
+    text-decoration: none;
 }
 
 .map-class {
@@ -185,7 +202,7 @@ ul{
 
 #idYourAddress, #idYourTitle, #idYourCategory, #idBtnYourAddress {
     border: 5px #222 solid;
-    height: 35px;
+    height: 40px;
     width: 100%;
     font-weight: bold;
 }
@@ -219,36 +236,4 @@ input, select {
 
 .marker-msg {
     text-align: center;
-}
-
-/*added on 12-12-16*/
-
-
-.heading {
-    text-align: center;
-}
-
-.sub-heading {
-    height: 20px;
-    color: peachpuff;
-    font-family: 'Lucida Handwriting', calibri;
-    text-align: right;
-}
-
-.head-prom-places {
-    height: 30px;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-a:hover {
-    color: blueviolet;
-    text-decoration: none;
-}
-
-ul li:hover {
-    color: yellow;
 }

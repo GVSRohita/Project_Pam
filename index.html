@@ -2,6 +2,7 @@
 <html>
     <head>
         <title> Neighborhood map </title>
+        <!--The necessary links required to load the application-->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,11 +15,12 @@
         <script src="js/knockout-3.4.1.js"></script>
     </head>
     <body>
+        <!--The bootstrap functionality-->
         <div class="container">
             <header>
                 <div class="row">
-                    <div class="col-md-12" style="text-align: center;"><h1>My Neighbourhood Map</h1></div>
-                    <div class="col-md-12" style="height: 20px; color: yellow; text-align: right;"><em><h4>You can add yours too, here :-)&nbsp;</h4></em></div>
+                    <div class="col-md-12 heading"><h1>My Neighbourhood Map</h1></div>
+                    <div class="col-md-12 sub-heading"><h4><em>You can add yours too, here 😉&nbsp;&nbsp;</em></h4></div>
                 </div>
             </header>
             <main>
@@ -29,7 +31,7 @@
             <section>
                 <div class="row">
                     <div class="col-md-3 col-sm-12 col-xs-12 info-box">
-                        <div class="wiki-links" style="height: 30px;">
+                        <div class="head-prom-places wiki-links">
                             <h4 id="idPlaces">Prominent Places in My Neighbourhood</h4>
                         </div>
                         <div>
@@ -86,7 +88,7 @@
             </section>
             <footer>
                 <div class="row">
-                    <div id="idDivErrorMsg" class="col-md-12 col-sm-12 col-xs-12" style="text-align: left;"><span id="idMsg" data-bind="text: errorMessage"></span></div>
+                    <div id="idDivErrorMsg" class="col-md-12 col-sm-12 col-xs-12"><span id="idMsg" data-bind="text: errorMessage"></span></div>
                 </div>
             </footer>
         </div>

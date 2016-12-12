@@ -1,7 +1,3 @@
-/* *****************************************************************************
- *          INITIALIZATION OF LOCATIONS TO DISPLAYED ON THE MAP
- * *****************************************************************************
- */
 //The locations to be displayed on the map, being mentioned in the rubric that
 //there should be atleast 5 locations, I have placed a total of 9 locations
 //of the prominent places in my neighborhood.
@@ -12,25 +8,25 @@ var locations = [
     {title: 'Visakha Museum', cat: "Heritage", location: {lat: 17.7206, lng: 83.3342}},
     {title: 'Sivaji Park', cat: "Park", location: {lat: 17.7374, lng: 83.3312}},
     {title: 'Rushikonda Beach', cat: "Sun n Sand", location: {lat: 17.7820, lng: 83.3853}},
-    {title: 'Ramakrishna Beach', cat: "Sun n Sand", location: {lat: 17.7115, lng: 83.3195}},
+    {title: 'MFC Restaurant', cat: "Hotel", location: {lat: 17.7115, lng: 83.3195}},
     {title: 'Hotel Daspalla', cat: "Hotel", location: {lat: 17.7106556, lng: 83.3004312}},
     {title: 'Vizag Steel Plant', cat: "Industry", location: {lat: 17.6333889, lng: 83.1706543}}
 ];
+
+//For location latitude and longitude
 var LocationLatLng = function (lat_, lng_) {
     this.lat = lat_;
     this.lng = lng_;
 };
+
+//For title, category, latitude and longitude
 var Location = function (title_, cat_, locationLatLng_) {
     this.title = title_;
     this.cat = cat_;
     this.location = locationLatLng_;
 };
 
-/* *****************************************************************************
- *                  INITIALIZATION OF ALL THE VARIABLES
- * *****************************************************************************
- */
-//This array holds current locations
+//Array to hold the current location
 var myObservableArray = [];
 //map variable
 var map;
@@ -48,20 +44,18 @@ var bounds;
 var filterTitle;
 //wikipedia links for the clicked location
 var chosenLocation;
-//
+//for displaying the error message
 var errorMessage;
-//var wikiLinks = {url: 'dummy.com'};
+
+//For the Wikipedia title and url
 var wikiLink = function (title_, URL_) {
     this.title = title_;
     this.url = URL_;
 };
+
 //for wikipedia links
 var wikiLinksArray = [];
 var wikiLinksArrayKO = [];
-/* *****************************************************************************
- *                         ALL FUNCTIONS
- * *****************************************************************************
- */
 
 //to hide the map markers, while filtering the locations on the input box
 //displayed beside the map
@@ -95,10 +89,7 @@ function addMarkers() {
     }
     map.fitBounds(bounds);
 }
-/* *****************************************************************************
- *                THE VIEW MODEL WITH KNOCKOUT FRAMEWORK
- * *****************************************************************************
- */
+
 //Controlling the ViewModal with the help of Knockout framework, the salient
 //feature of using the Knockout framework is addressed below.
 var viewModal = function () {
@@ -138,11 +129,10 @@ var viewModal = function () {
     self.moveTo = function (domElement) {
         $('html, body').animate({scrollTop: $(domElement).offset().top}, "slow");
     };
-    //
+    //to add your location to my map
     self.addYourddress = function () {
         formLocation(yourAddress(), yourAddressTitle(), yourCategory());
     };
-
 };
 //applying main ko function
 ko.applyBindings(new viewModal());
@@ -153,8 +143,8 @@ window.setTimeout(goToTop, 3000);
 function goToTop() {
     $('html, body').animate({scrollTop: $('.container').offset().top}, 'slow');
 }
-
-function populateInfoWindow(mvm, marker, infowindow) {
+//To populate infowindow
+function populateInfoWindow(vvm, marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker !== marker) {
         // Clear the infowindow content to give the streetview time to load.
@@ -194,7 +184,7 @@ function populateInfoWindow(mvm, marker, infowindow) {
         streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
-        if (mvm === 'm') {
+        if (vvm === 'v') {
             for (var a = 0; a < myObservableArray().length; a++) {
                 var latDiff = Math.abs(marker.getPosition().lat() - myObservableArray()[a].location.lat);
                 var lngDiff = Math.abs(marker.getPosition().lng() - myObservableArray()[a].location.lng);
@@ -208,7 +198,7 @@ function populateInfoWindow(mvm, marker, infowindow) {
 
 }
 
-
+//For the marker colors
 function makeMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
             'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
@@ -220,6 +210,7 @@ function makeMarkerIcon(markerColor) {
     return markerImage;
 }
 
+//To get Wikipedia links
 function getWikiLinks(title_) {
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + title_ + '&format=json&callback=wikicallback';
     var wikiRequestTimeout = setTimeout(function () {
@@ -242,6 +233,7 @@ function getWikiLinks(title_) {
             wikiLinksArrayKO(wikiLinksArray);
             clearTimeout(wikiRequestTimeout);
         },
+        //Initialising an error function
         error: function (returnval) {
             errorMessage('Error while retrieving Wikilinks. Return Value: "' + returnval + '", Kindly mail this info to gvsrohita@gmail.com');
             $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
@@ -250,6 +242,7 @@ function getWikiLinks(title_) {
     return true;
 }
 
+//Adding your location to my map
 function formLocation(address_, title_, category_) {    
     if ((address_ === undefined) || (title_ === undefined) || (category_ === undefined)) {
         composeErrorMsg('Enter Address, Name & Category, and then click the button');
@@ -277,6 +270,7 @@ function formLocation(address_, title_, category_) {
     }
 }
 
+//To set the marker location
 function setMarker(location) {
     marker = new google.maps.Marker({
         map: map,
@@ -296,10 +290,11 @@ function setMarker(location) {
     marker.addListener('click', function () {
         var clickedIcon = makeMarkerIcon('FFFF24');
         this.setIcon(clickedIcon);
-        populateInfoWindow('m', this, largeInfowindow);
+        populateInfoWindow('v', this, largeInfowindow);
     });
 }
 
+//To display an error message to avoid inconvenience to users
 function composeErrorMsg(errMsg_) {
     errorMessage(errMsg_);
     $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
