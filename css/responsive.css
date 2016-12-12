@@ -1,12 +1,17 @@
 /*Adding break point to make the map page fully responsive*/
 @media screen and (max-width: 768px) {
+    /* To ensure that map only does not occupy entire screen space in iPad & mobile*/
     .map-class {
         min-height: 300px;
         max-height: 500px;        
     }
+    /* To make the widths of filter, locations and wikilinks 100%
+    in iPad & Mobiles*/
     .info-box {
         width: 100%;
     }
+    /* As the placeholders of the add your locations become visible in this
+    media, the button, which enables page to scroll to is made invisible*/
     #idBtnFun, #idDivBtnFun {
         display: none;
     }

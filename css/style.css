@@ -138,6 +138,7 @@ ul li:hover {
     height: 35px;
     width: 100%;
     font-weight: bold;
+    text-align: center;
 }
 
 #map {
@@ -191,6 +192,7 @@ ul li:hover {
     width: 100%;
     background-color: darkgrey;
     color: black;
+    text-align: center;
 }
 
 .heading {
