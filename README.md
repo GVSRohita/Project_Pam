@@ -36,4 +36,12 @@ Visit my map [here] (https://gvsrohita.github.io/Project_Pam/)
 
 ##### Desktop screen-shot
 ![Desktop screen-shot] (https://gvsrohita.github.io/Project_Pam/readme-images/README-IMAGE-1-DESKTOP.jpg)
+
+##### iPad screen-shot
+![iPad screen-shot] (https://gvsrohita.github.io/Project_Pam/readme-images/README-IMAGE-2-IPAD.jpg)
+
+##### Mobile-phone screen-shot
+![Mobile-phone screen-shot] (https://gvsrohita.github.io/Project_Pam/readme-images/README-IMAGE-3-MOBILE.jpg)
+
 **HAPPY MAPPING!!!**
+
