@@ -26,7 +26,7 @@ You can add your own locations (address, title and category of the location) to 
 - I used **html**, **javascript** and **css** to create this _web-site_
 - I went for **m-v-vm** model for unobtrusive rendering of data from _model(objects)_ to _view (html)_ and _vice-versa_
 - The **knockout.js** is really wonderful in helping me achieve this requirement
-- The data-bind portion learnt from [tutorials, for example this link] (http://knockoutjs.com/documentation/foreach-binding.html) came very handy for me over here
+- The data-bind portion learnt from [Knockout Ddocumentation] (http://knockoutjs.com/documentation/introduction.html), - [for example, links like these] (http://knockoutjs.com/documentation/foreach-binding.html) - came very handy for me over here
 - The fundas about arrays and objects learnt while doing the previous projects [Online Resume] (https://gvsrohita.github.io/OnlineResume/) & [Classic Arcade Game Clone] (https://gvsrohita.github.io/Classic-Arcade-Game-Clone/) were put to good use over here to achieve the required objectives
 - Learnings I made while doing the project [Portfolio Site] (https://gvsrohita.github.io/PortfolioSite/), especially in the area of making the site responsive, were put to good effect over here.
 
