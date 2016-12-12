@@ -32,4 +32,8 @@ You can add your own locations to the map by following the following steps:
 
 Visit my map [here] (https://gvsrohita.github.io/Project_Pam/)
 
+#### The Screen-shots of the web-page from different media:
+
+##### Desktop screen-shot
+![Desktop screen-shot] (https://gvsrohita.github.io/Project_Pam/readme-images/README-IMAGE-1-DESKTOP.jpg)
 **HAPPY MAPPING!!!**
