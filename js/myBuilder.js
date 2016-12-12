@@ -190,7 +190,7 @@ function populateInfoWindow(vvm, marker, infowindow) {
                 var latDiff = Math.abs(marker.getPosition().lat() - myObservableArray()[a].location.lat);
                 var lngDiff = Math.abs(marker.getPosition().lng() - myObservableArray()[a].location.lng);
                 if ((latDiff < 0.000001) && (lngDiff < 0.000001)) {
-                    getWikiLinks(myObservableArray()[a].title);
+                    var bool1 = getWikiLinks(myObservableArray()[a].title);
                     break;
                 }
             }
@@ -213,7 +213,6 @@ function makeMarkerIcon(markerColor) {
 
 //To get Wikipedia links
 function getWikiLinks(title_) {
-    var noLinks = 0;
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + title_ + '&format=json&callback=wikicallback';
     //8 seconds of timeout period given for populating wikilinks
     var wikiRequestTimeout = setTimeout(function () {
@@ -225,7 +224,6 @@ function getWikiLinks(title_) {
         success: function (response) {
             wikiLinksArray = [];
             var articleList = response[1];
-            noLinks = articleList.length;
             for (var i = 0; i < articleList.length; i++) {
                 articleStr = articleList[i];
                 var urlLocation = 'https://en.wikipedia.org/wiki/' + articleStr;
@@ -242,7 +240,7 @@ function getWikiLinks(title_) {
             composeErrorMsg('Error while retrieving Wikilinks. Return Value: e-"' + err + '", ts-"' + ts + '", et-"' + et + '"; Kindly mail this info to gvsrohita@gmail.com');
         }
     });
-    return noLinks;
+    return true;
 }
 
 //Adding your location to my map
@@ -263,10 +261,7 @@ function formLocation(address_, title_, category_) {
                 setMarker(location);
                 goToDomLocation('.container', 'slow');
                 populateInfoWindow('vm', marker, largeInfowindow);
-                var noWikiLinks = getWikiLinks(title_);
-                if (noWikiLinks > 0) {
-                    window.setTimeout(goToDomLocation('#wikilinksHeading', 'slow'), 3000);                    
-                }
+                var bool1 = getWikiLinks(title_);                
                 errorMessage('');
             } else {
                 composeErrorMsg('Sorry, Google does not recognize this address. Try another one. Better Luck, next time!');

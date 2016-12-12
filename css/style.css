@@ -1,11 +1,19 @@
+/*Styling to my map page*/
+
+/*******************************DOM Tags***************************************/
+
 * {
     box-sizing: border-box;
 }
 
-div {
-    margin: 0;
-    padding: 0;
-    border: 0;
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: blueviolet;
+    text-decoration: none;
 }
 
 html,body {
@@ -13,20 +21,19 @@ html,body {
     width: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Averia Libre', calibri;
+    font-family: "Averia Libre", calibri;
     background-color: gray;
 }
 
-body{
+body {
     font-weight: 300;
     color: #333;
-    /*margin-bottom: 30px;*/
 }
 
-header {
-    height: 75px;
-    background-color: #204d74;
-    display: block;
+div {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 h1 {
@@ -37,15 +44,60 @@ h1 {
     color: white;
 }
 
-#map {
-    background-color: #E9E5DC;
-    float: left;
-    width: 100%;
+h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
-#pano {
-    width: 300px;
-    height: 300px;
+header {
+    height: 75px;
+    background-color: #204d74;
+    display: block;
+}
+
+input, select {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+li {
+    padding: 2px 0 3px 0;
+}
+
+span {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li:hover {
+    color: yellow;
+}
+
+/*********************************DOM Elements*********************************/
+
+#authorDetails {
+    padding: 4px 0 0 0;
+    background-color: white;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+}
+
+#idBtnFun {
+    width: 100%;
+    height: 50px;
+}
+
+#idCat {
+    color: grey;
 }
 
 #idDivContainerPlaces {
@@ -54,28 +106,10 @@ h1 {
     color: white;
 }
 
-.wiki-links {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    width: 100%;
-    height: 150px;
-    background-color: darkgrey;
-    color: black;
-}
-
-#idFilter {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    width: 100%;
-    height: 30px;
-}
-
-span {
-    padding: 0;
-    margin: 0;
-    border: 0;
+#idDivErrorMsg {
+    background-color: white;
+    font-weight: bold;
+    text-align: left;
 }
 
 #idDivListPlaces {
@@ -90,6 +124,37 @@ span {
     height: 280px;
 }
 
+#idFilter {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+
+#idYourAddress, #idYourTitle, #idYourCategory, #idBtnYourAddress {
+    border: 5px #222 solid;
+    height: 35px;
+    width: 100%;
+    font-weight: bold;
+}
+
+#map {
+    background-color: #E9E5DC;
+    float: left;
+    width: 100%;
+}
+
+#pano {
+    width: 300px;
+    height: 300px;
+}
+
+#wikilinksHeading {
+    text-align: center;
+}
+
 #wikipedialinks {
     padding: 2px 0 0 10px;
     text-align: left;
@@ -101,7 +166,16 @@ span {
     overflow: scroll;
     height: 150px;
 }
-.container{
+
+/********************************Classes***************************************/
+
+.col-md-12, .col-md-11, .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2, .col-md-1, .col-sm-12, .col-xs-12, .row {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.container {
     background-color: #333;
     border: #1b6d85 thin solid;
     margin: auto;
@@ -109,45 +183,18 @@ span {
     border: 0;    
 }
 
-.row, .col-md-9, .col-md-12, .col-md-3 {
+.head-prom-places {
+    height: 30px;
     margin: 0;
-    padding: 0;
-    border: 0;    
-}
-
-ul {
-    list-style-type: none;
-}
-
-h2, h3, h4 {
-    margin: 0;
-    padding: 0;
+    padding: 2px 0 0 0;
     border: 0;
-}
-
-#wikilinksHeading {
-    text-align: center;
-}
-
-#idFilter {
-    text-align: center;
-}
-
-#authorDetails {
-    padding: 4px 0 0 0;
-    background-color: white;
     width: 100%;
-    height: 45px;
+    background-color: darkgrey;
+    color: black;
+}
+
+.heading {
     text-align: center;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-a:hover {
-    color: blueviolet;
 }
 
 .map-class {
@@ -155,12 +202,13 @@ a:hover {
     max-height: 800px;
 }
 
-li{
-    padding: 2px 0 3px 0;
+.marker-title {
+    text-align: center;
+    font-weight: bold;
 }
 
-ul{
-    padding: 0;
+.marker-msg {
+    text-align: center;
 }
 
 .my-button {
@@ -178,77 +226,19 @@ ul{
     color: #204d74;
 }
 
-#idBtnFun {
-    width: 100%;
-    height: 50px;
-}
-
-#idYourAddress, #idYourTitle, #idYourCategory, #idBtnYourAddress {
-    border: 5px #222 solid;
-    height: 35px;
-    width: 100%;
-    font-weight: bold;
-}
-
-input, select {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
-
-.col-md-12, .col-md-11, .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2, .col-md-1 {
-    padding: 0;
-    margin: 0;
-    border: 0;
-}
-
-#idDivErrorMsg {
-    background-color: white;
-    font-weight: bold;
-    text-align: left;
-}
-
-#idCat {
-    color: grey;
-}
-
-.marker-title {
-    text-align: center;
-    font-weight: bold;
-}
-
-.marker-msg {
-    text-align: center;
-}
-
-/*added on 12-12-16*/
-
-
-.heading {
-    text-align: center;
-}
-
 .sub-heading {
     height: 20px;
     color: peachpuff;
-    font-family: 'Lucida Handwriting', calibri;
+    font-family: "Lucida Handwriting", calibri;
     text-align: right;
 }
 
-.head-prom-places {
-    height: 30px;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-a:hover {
-    color: blueviolet;
-    text-decoration: none;
-}
-
-ul li:hover {
-    color: yellow;
+.wiki-links {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 150px;
+    background-color: darkgrey;
+    color: black;
 }

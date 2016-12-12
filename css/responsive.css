@@ -1,4 +1,4 @@
-
+/*Adding break point to make the map page fully responsive*/
 @media screen and (max-width: 768px) {
     .map-class {
         min-height: 300px;

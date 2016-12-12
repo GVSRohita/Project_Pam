@@ -25,13 +25,14 @@
             </header>
             <main>
                 <div class="col-md-9 col-sm-12 col-xs-12 map-class">
+                    <!--For placing the Google Maps-->
                     <div id="map" class="map-class"></div>
                 </div>
             </main>
             <section>
                 <div class="row">
                     <div class="col-md-3 col-sm-12 col-xs-12 info-box">
-                        <div class="head-prom-places wiki-links">
+                        <div class="head-prom-places">
                             <h4 id="idPlaces">Prominent Places in My Neighbourhood</h4>
                         </div>
                         <div>
@@ -56,9 +57,11 @@
                                 </li>
                             </ul>
                         </div>
+                        <!--My info-->
                         <div id="authorDetails">
                             <h5>Built by <a href="https://gvsrohita.github.io/OnlineResume/" target="_blank"><strong>Venkata Sri Rohita Goparaju!</strong></a></h5>
                         </div>
+                        <!--The click button to add your own locations in my map-->
                         <div id="idDivBtnFun">
                             <button id="idBtnFun" class="my-button" data-bind="click:moveTo('#idYourAddress')"><em>The Fun part! Click here to go to add your locations</em></button>
                         </div>
@@ -66,6 +69,7 @@
                 </div>
             </section>
             <section>
+                <!--The input box which displays the locations-->
                 <div class="row">
                     <div id="idDivYourAddress" class="col-md-5 col-sm-12 col-xs-12">
                         <input id="idYourAddress" type="text" placeholder="Enter Your neighborhood Address, Name, Category, click & see the magic!" data-bind="value: yourAddress" autocomplete="off"/>
@@ -86,15 +90,18 @@
                     <div class="col-md-1 col-sm-12 col-xs-12"><button id="idBtnYourAddress" class="my-button" data-bind="click: addYourddress">Click</button></div>
                 </div>
             </section>
+            <!--To display the error message, in case of any inconvenience while loading the wikipedia links-->
             <footer>
                 <div class="row">
                     <div id="idDivErrorMsg" class="col-md-12 col-sm-12 col-xs-12"><span id="idMsg" data-bind="text: errorMessage"></span></div>
                 </div>
             </footer>
         </div>
+        <!--To load the google maps API-->
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8UsJDFjlef35eUrO7io5FsBxIorvXm5M&v=3&callback=initMap">
         </script>
+        <!--To load the Javascript-->
         <script src="js/myBuilder.js"></script>
     </body>
 </html>
