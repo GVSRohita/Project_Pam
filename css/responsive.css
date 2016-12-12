@@ -1,8 +1,8 @@
 /*Adding break point to make the map page fully responsive*/
 @media screen and (max-width: 768px) {
     .map-class {
-        min-height: 300px;
-        max-height: 500px;        
+        min-height: 500px;
+        max-height: 700px;        
     }
     .info-box {
         width: 100%;
