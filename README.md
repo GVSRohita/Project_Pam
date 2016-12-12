@@ -34,10 +34,10 @@ You can add your own locations (address, title and category of the location) to 
 - [Google Maps API] (https://developers.google.com/maps/documentation/)
 - [Knockout JS] (http://knockoutjs.com/)
 - [Wikipedia API] (https://www.mediawiki.org/wiki/API:Main_page)
-- This list would be incomplete without the mention of [Stakeoverflow] (http://stackoverflow.com/) : There is not a single issue remained unresolved when I went to it. Especially for coding for _pausing_, _error messaging_ its contribution is immense
-- The inputs from my friends on _slack_ and _udacity forums_ too were very valuable in finishing this project
+- This list would be incomplete without the mention of [Stakeoverflow] (http://stackoverflow.com/). Not even a single issue remained unresolved, whenever I went to it. Especially for coding for _pausing_, _error messaging_, its contribution is immense
+- The inputs from my friends (almost all of them are anonymous - the pleasure as well as pain facilitated/inflicted by this virtual web world; pleasure because of their wonderful contribuion, pain for the reason of being not able to meet them in person) on _slack_ and _udacity forums_ too were very valuable in finishing this project
 
-Thanks a lot for patiently reading this stuff! Now, it is time to visit my map [here] (https://gvsrohita.github.io/Project_Pam/)
+Thanks a lot for patiently reading this stuff! Now, it is time to visit my project [here] (https://gvsrohita.github.io/Project_Pam/)
 
 #### The Screen-shots of the web-page from different media:
 
