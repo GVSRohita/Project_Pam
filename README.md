@@ -1,5 +1,5 @@
-Welcome to My Neighborhood Map - by G V Sri Rohita
-========================================================
+Welcome to **My Neighborhood Map** - by _G V Sri Rohita_
+==========================================================
 
 ## Basic Introduction:
 My neighborhood map displays the prominent places in _Visakhapatnam city_. Do not forget to visit my link if you are visiting this place, it is handy as well as helps you a lot if you are planning to visit this beautiful place.
