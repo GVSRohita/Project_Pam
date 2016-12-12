@@ -127,7 +127,8 @@ var viewModal = function () {
     };
     //to move to specific DOM element 
     self.moveTo = function (domElement) {
-        $('html, body').animate({scrollTop: $(domElement).offset().top}, "slow");
+        //$('html, body').animate({scrollTop: $(domElement).offset().top}, "slow");
+        goToDomLocation(domElement, 'slow');
     };
     //to add your location to my map
     self.addYourddress = function () {
@@ -138,11 +139,11 @@ var viewModal = function () {
 ko.applyBindings(new viewModal());
 //To enforce a delay of about 3 seconds to scroll to page top. The delay is necessitated
 //for Google api takes some time to populate all the elements.
-window.setTimeout(goToTop, 3000);
+window.setTimeout(goToDomLocation('.container', 'slow'), 3000);
 //Initiatlly, to scroll to the top of the page for maximum viewing experience.
-function goToTop() {
-    $('html, body').animate({scrollTop: $('.container').offset().top}, 'slow');
-}
+//function goToTop() {
+//$('html, body').animate({scrollTop: $('.container').offset().top}, 'slow');
+//}
 //To populate infowindow
 function populateInfoWindow(vvm, marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
@@ -212,10 +213,11 @@ function makeMarkerIcon(markerColor) {
 
 //To get Wikipedia links
 function getWikiLinks(title_) {
+    var noLinks = 0;
     var wikiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + title_ + '&format=json&callback=wikicallback';
+    //8 seconds of timeout period given for populating wikilinks
     var wikiRequestTimeout = setTimeout(function () {
-        errorMessage('Failed to get the Wikipedia resources in reasonable time period');
-        $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
+        composeErrorMsg('Failed to get the Wikipedia resources in reasonable time period');
     }, 8000);
     $.ajax({
         url: wikiUrl,
@@ -223,6 +225,7 @@ function getWikiLinks(title_) {
         success: function (response) {
             wikiLinksArray = [];
             var articleList = response[1];
+            noLinks = articleList.length;
             for (var i = 0; i < articleList.length; i++) {
                 articleStr = articleList[i];
                 var urlLocation = 'https://en.wikipedia.org/wiki/' + articleStr;
@@ -233,21 +236,20 @@ function getWikiLinks(title_) {
             wikiLinksArrayKO(wikiLinksArray);
             clearTimeout(wikiRequestTimeout);
         },
-        //Initialising an error function
-        error: function (returnval) {
-            errorMessage('Error while retrieving Wikilinks. Return Value: "' + returnval + '", Kindly mail this info to gvsrohita@gmail.com');
-            $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
+        //Graceful exit when encounters error with relevant message
+        error: function (e, ts, et) {
+            var err = 'ready state: ' + e.readyState + ', status: ' + e.status + ', status text: ' + e.statusText;
+            composeErrorMsg('Error while retrieving Wikilinks. Return Value: e-"' + err + '", ts-"' + ts + '", et-"' + et + '"; Kindly mail this info to gvsrohita@gmail.com');
         }
     });
-    return true;
+    return noLinks;
 }
 
 //Adding your location to my map
-function formLocation(address_, title_, category_) {    
+function formLocation(address_, title_, category_) {
     if ((address_ === undefined) || (title_ === undefined) || (category_ === undefined)) {
         composeErrorMsg('Enter Address, Name & Category, and then click the button');
-    } 
-    else {
+    } else {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({'address': address_}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
@@ -256,13 +258,16 @@ function formLocation(address_, title_, category_) {
                 var locationLatLng = new LocationLatLng(latitude, longitude);
                 var location = new Location(title_, category_, locationLatLng);
                 myObservableArray.push(location);
-                locations.push(location);
                 bounds.extend(locationLatLng);
                 map.fitBounds(bounds);
                 setMarker(location);
+                goToDomLocation('.container', 'slow');
                 populateInfoWindow('vm', marker, largeInfowindow);
-                getWikiLinks(title_);
-                composeErrorMsg('');
+                var noWikiLinks = getWikiLinks(title_);
+                if (noWikiLinks > 0) {
+                    window.setTimeout(goToDomLocation('#wikilinksHeading', 'slow'), 3000);                    
+                }
+                errorMessage('');
             } else {
                 composeErrorMsg('Sorry, Google does not recognize this address. Try another one. Better Luck, next time!');
             }
@@ -297,5 +302,10 @@ function setMarker(location) {
 //To display an error message to avoid inconvenience to users
 function composeErrorMsg(errMsg_) {
     errorMessage(errMsg_);
-    $('html, body').animate({scrollTop: $('#idMsg').offset().top}, 'slow');
+    goToDomLocation('#idMsg', 'slow');
+    //$('html, body').animate({scrollTop: $('#idMsg').offset().top}, );
+}
+
+function goToDomLocation(domLocation_, speed_) {
+    $('html, body').animate({scrollTop: $(domLocation_).offset().top}, speed_);
 }
