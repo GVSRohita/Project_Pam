@@ -2,17 +2,17 @@
 <html>
     <head>
         <title> Neighborhood map </title>
-        <!--The necessary links required to load the application-->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--The necessary links required to load the application-->
         <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="bootstrap/bootstrap.min.js"></script>
+        <script src="js/knockout-3.4.1.js"></script>
         <link href="bootstrap/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
         <link href="bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="css/style.css" rel="stylesheet" type="text/css">
         <link href="css/responsive.css" rel="stylesheet" type="text/css">
-        <script src="bootstrap/bootstrap.min.js"></script>
-        <script src="js/knockout-3.4.1.js"></script>
     </head>
     <body>
         <!--The bootstrap functionality-->
@@ -36,23 +36,33 @@
                             <h4 id="idPlaces">Prominent Places in My Neighbourhood</h4>
                         </div>
                         <div>
-                            <!--input box for getting filtered key word. It uses knockout function-->
+                            <!--input box for key word for filtering. It uses knockout.js features for data-binding-->
+                            <!--Knockout features-->
+                            <!--data field - filterTitle-->
+                            <!--Keyup function - populatePlaceTitles-->
                             <input id="idFilter" type="text" placeholder="Filter the list based on name of location"  data-bind="value: filterTitle, valueUpdate: 'keyup', event: { keyup: populatePlaceTitles }" autocomplete="off"/>
                         </div>
                         <div id ="idDivListPlaces">
-                            <!--Ordered list for holding titles of places to be marked-->
+                            <!--List for holding titles of places (original as well as filtered) to be marked-->
+                            <!--Knockout features-->
+                            <!--data Array - myObservableArray-->
                             <ul id="idListPlaces" data-bind="foreach: myObservableArray">
                                 <li>
+                                    <!--Knockout features-->
+                                    <!--Click function - parent.showInfoWindow-->
                                     <span data-bind="text: $data.title, click: $parent.showInfoWindow.bind($data)"></span>&nbsp;<span id="idCat" data-bind="text: ' - ' +$data.cat, click: $parent.showInfoWindow.bind($data)"></span>
-
                                 </li>
                             </ul>
                         </div>
-                        <!--To load the third party API-->
+                        <!--For Wikipedia Links-->
                         <div class="wiki-links">
                             <h4 id="wikilinksHeading">Wikipedia Links for the Chosen Location</h4>
+                            <!--Knockout features-->
+                            <!--data Array - wikiLinksArrayKO-->                            
                             <ul id="wikipedialinks" data-bind="foreach: wikiLinksArrayKO">
                                 <li>
+                                    <!--Knockout features-->
+                                    <!--Click Function - parent.openURL-->
                                     <span data-bind="text: $data.title, click: $parent.openURL.bind($data)"></span>
                                 </li>
                             </ul>
@@ -63,6 +73,8 @@
                         </div>
                         <!--The click button to add your own locations in my map-->
                         <div id="idDivBtnFun">
+                            <!--Knockout features-->
+                            <!--Click Function - moveTo-->
                             <button id="idBtnFun" class="my-button" data-bind="click:moveTo('#idYourAddress')"><em>The Fun part! Click here to go to add your locations</em></button>
                         </div>
                     </div>
@@ -72,12 +84,19 @@
                 <!--The input box which displays the locations-->
                 <div class="row">
                     <div id="idDivYourAddress" class="col-md-5 col-sm-12 col-xs-12">
+                        <!--Knockout features-->
+                        <!--Data: yourAddress-->
                         <input id="idYourAddress" type="text" placeholder="Enter Your neighborhood Address, Name, Category, click & see the magic!" data-bind="value: yourAddress" autocomplete="off"/>
                     </div>                    
                     <div class="col-md-3 col-sm-12 col-xs-12">
+                        <!--Knockout features-->
+                        <!--Data: yourAddressTitle-->
                         <input id="idYourTitle" type="text" placeholder="Name of the location" data-bind="value: yourAddressTitle" autocomplete="off"/>
                     </div>
-                    <div class="col-md-3 col-sm-12 col-xs-12"><select id="idYourCategory" data-bind="value: yourCategory" autocomplete="off">
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <!--Knockout features-->
+                        <!--Data: yourCategory-->
+                        <select id="idYourCategory" data-bind="value: yourCategory" autocomplete="off">
                             <option value="Pilgrim Center">Pilgrim Center</option>
                             <option value="Hotel">Hotel</option>
                             <option value="Outing">Outing</option>
@@ -86,14 +105,23 @@
                             <option value="Sun n Sand">Sun n Sand</option>
                             <option value="Industry">Industry</option>
                             <option value="Others">Others</option>
-                        </select></div>
-                    <div class="col-md-1 col-sm-12 col-xs-12"><button id="idBtnYourAddress" class="my-button" data-bind="click: addYourddress">Click</button></div>
+                        </select>
+                    </div>
+                    <div class="col-md-1 col-sm-12 col-xs-12">
+                        <!--Knockout features-->
+                        <!--Click: addYourddress-->
+                        <button id="idBtnYourAddress" class="my-button" data-bind="click: addYourddress">Click</button>
+                    </div>
                 </div>
             </section>
             <!--To display the error message, in case of any inconvenience while loading the wikipedia links-->
             <footer>
                 <div class="row">
-                    <div id="idDivErrorMsg" class="col-md-12 col-sm-12 col-xs-12"><span id="idMsg" data-bind="text: errorMessage"></span></div>
+                    <div id="idDivErrorMsg" class="col-md-12 col-sm-12 col-xs-12">
+                        <!--Knockout features-->
+                        <!--Data: errorMessage-->
+                        <span id="idMsg" data-bind="text: errorMessage"></span>
+                    </div>
                 </div>
             </footer>
         </div>
@@ -101,7 +129,7 @@
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8UsJDFjlef35eUrO7io5FsBxIorvXm5M&v=3&callback=initMap">
         </script>
-        <!--To load the Javascript-->
+        <!--To load the custom coded javascript file-->
         <script src="js/myBuilder.js"></script>
     </body>
 </html>
