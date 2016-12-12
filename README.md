@@ -31,12 +31,16 @@ You can add your own locations (address, title and category of the location) to 
 - The fundas about arrays and objects learnt while doing the previous projects [Online Resume] (https://gvsrohita.github.io/OnlineResume/) & [Classic Arcade Game Clone] (https://gvsrohita.github.io/Classic-Arcade-Game-Clone/) were put to good use over here to achieve the required objectives
 - Learnings I made while doing the project [Portfolio Site] (https://gvsrohita.github.io/PortfolioSite/), especially in the area of making the site responsive, were put to good effect over here.
 
-#### Sources that helped me build my map:
+#### The Libraries and APIs used:
+Besides _HTML, CSS, Javascript, Bootstrap_ and _JQuery_ library, the following have been used in the coding
 - [Google Maps API] (https://developers.google.com/maps/documentation/)
 - [Knockout JS] (http://knockoutjs.com/)
 - [Wikipedia API] (https://www.mediawiki.org/wiki/API:Main_page)
-- This list would be incomplete without the mention of [Stackoverflow] (http://stackoverflow.com/). Not even a single issue remained unresolved, whenever I went to it. Especially for coding for _pausing_, _error messaging_, its contribution is immense
+
+#### The sources that helped me build my app:
+- Udacity lessons
 - The inputs from my friends (almost all of them are anonymous - the pleasure as well as pain facilitated/inflicted by this virtual web world; pleasure because of their wonderful contribuion, pain for the reason of being not able to meet them in person) on _slack_ and _udacity forums_ too were very valuable in finishing this project
+- This list would be incomplete without the mention of [Stackoverflow] (http://stackoverflow.com/). Not even a single issue remained unresolved, whenever I went to it. Especially for coding for _pausing_, _error messaging_, its contribution is immense
 
 Thanks a lot for patiently reading this stuff! Now, it is time to visit my project [here] (https://gvsrohita.github.io/Project_Pam/)
 
