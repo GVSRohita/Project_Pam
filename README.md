@@ -2,7 +2,7 @@ Welcome to _My Neighborhood Map_ - by _G V Sri Rohita_
 ========================================================
 
 ## Basic Introduction:
-**My neighborhood map** displays the prominent places in _Visakhapatnam city in the province of Andhra Pradesh, India (my home city! )_. Do not forget to first visit [my link] (https://gvsrohita.github.io/Project_Pam/) in virtual world, if you are visiting this place in physical world. It is handy as well as helps you a lot in knowing everything about it. Not for nothing did I use _Wikipedia links!_ In addition, there is some more fun part too, which you would learn by reading further.
+**My neighborhood map** displays the prominent places in _Visakhapatnam city in the province of Andhra Pradesh, India (my home city! )_. Do not forget to first visit [my link] (https://gvsrohita.github.io/Project_Pam/) in virtual world, if you are visiting this place in physical world. It is handy as well as helps you a lot in knowing everything about it. Not for nothing did I use _Wikipedia links!_ In addition, there is some more fun part too, which you would know after reading further.
 
 ### A brief overview (including Technical and Programming details) about my project:
 In my project, I have used `JavaScript`, `jQuery`, `KnockoutJS`, `Google Maps API` along with `Wikipedia API` (Third Party API) to display some of the famous places in and around Visakhapatnam city. I made this web-site fully responsive. It can run without any incovenience in Desktop, laptop, ipad and mobile phones.
