@@ -1,4 +1,4 @@
-    Welcome to Neighborhood Map - by G V Sri Rohita
+Welcome to Neighborhood Map - by G V Sri Rohita
 ========================================================
 
 ## Basic Introduction:
