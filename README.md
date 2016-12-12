@@ -26,15 +26,16 @@ You can add your own locations (address, title and category of the location) to 
 - I used **html**, **javascript** and **css** to create this _web-site_
 - I went for **m-v-vm** model for unobtrusive rendering of data from _model(objects)_ to _view (html)_ and _vice-versa_
 - The **knockout.js** is really wonderful in helping me achieve this requirement
-- The data-bind portion learnt from [tutorials, for example this link] (http://knockoutjs.com/documentation/foreach-binding.html target='_blank') came very handy for me over here
+- The data-bind portion learnt from [tutorials, for example this link] (http://knockoutjs.com/documentation/foreach-binding.html) came very handy for me over here
 - The fundas about arrays and objects learnt while doing the previous projects [Online Resume] (https://gvsrohita.github.io/OnlineResume/) & [Classic Arcade Game Clone] (https://gvsrohita.github.io/Classic-Arcade-Game-Clone/) were put to good use over here to achieve the required objectives
-- Learnings I made while doing project [Portfolio Site] (https://gvsrohita.github.io/PortfolioSite/) especially in the area of making the site responsive were used here to good effect.
+- Learnings I made while doing the project [Portfolio Site] (https://gvsrohita.github.io/PortfolioSite/), especially in the area of making the site responsive, were put to good effect over here.
 
 #### Sources that helped me build my map:
 - [Google Maps API] (https://developers.google.com/maps/documentation/)
 - [Knockout JS] (http://knockoutjs.com/)
 - [Wikipedia API] (https://www.mediawiki.org/wiki/API:Main_page)
 - This list would be incomplete without the mention of [Stakeoverflow] (http://stackoverflow.com/) : There is not a single issue remained unresolved when I went to it. Especially for coding for _pausing_, _error messaging_ its contribution is immense
+- The inputs from my friends on _slack_ and _udacity forums_ too were very valuable in finishing this project
 
 Thanks a lot for patiently reading this stuff! Now, it is time to visit my map [here] (https://gvsrohita.github.io/Project_Pam/)
 
