@@ -10,7 +10,7 @@ In my project, I have used `JavaScript`, `jQuery`, `KnockoutJS`, `Google Maps AP
 ### Website Running Instructions:
 - Download the **Project_Pam** repository into your localhost
 - Ensure that the downloaded directory structure is not disturbed.
-- Then, run the index.html in a web browser (Preferably **Google chrome**) to unleash the magic!
+- Then, run the `index.html` in a web browser (Preferably **Google chrome**) to unleash the magic!
 - You will find a map of my home town _Visakhapatnam_ and the prominent places in and around it in the shape of _markers_
 - You can filter the places based on the part of name-string of the locations in the _input box_ with the tag _Filter places based on the name of location_
 - By clicking on any of the list items filtered or any of the many _markers_ that you see on the map, you can get information about that particular place, and also its **Streetview**, provided it is facilitated by Google
