@@ -277,10 +277,11 @@ var ViewModal = function () {
     //for opening wikilink
     //Argument:
     //chosenLoc - chosenLocation object
+    /**************************start 13-12-16***********************************
     self.openURL = function (chosenLoc) {
         window.open(chosenLoc.url, '_blank');
     };
-
+******************************end**********************************************/
     //to move to specific DOM element
     //Argument:
     //domElement - DOM Element (It can be either id or class name or even tag)

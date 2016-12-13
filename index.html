@@ -60,7 +60,8 @@
                                 <li>
                                     <!--Knockout features-->
                                     <!--Click Function - parent.openURL-->
-                                    <span data-bind="text: $data.title, click: $parent.openURL.bind($data)"></span>
+                                    <!--span data-bind="text: $data.title, click: $parent.openURL.bind($data)"></span-->
+                                    <a data-bind="attr: { href: $data.url, title: $data.title}" target="_blank"><span data-bind="text: $data.title"></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -127,7 +128,7 @@
         <script src="bootstrap/bootstrap.min.js"></script>
         <script src="js/knockout-3.4.1.js"></script>
         <!--To load the custom coded javascript file-->
-        <script src="js/myBuilderDuddu.js"></script>
+        <script src="js/myBuilder.js"></script>
         <!--To load the google maps API-->
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8UsJDFjlef35eUrO7io5FsBxIorvXm5M&v=3&callback=initMap" onerror="googleErrorHandling()">
