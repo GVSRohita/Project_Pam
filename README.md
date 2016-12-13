@@ -8,7 +8,9 @@ Welcome to _My Neighborhood Map_ - by _G V Sri Rohita_
 In my project, I have used `JavaScript`, `jQuery`, `KnockoutJS`, `Google Maps API` along with `Wikipedia API` (Third Party API) to display some of the famous places in and around Visakhapatnam city. I made this web-site fully responsive. It can run without any incovenience in Desktop, laptop, ipad and mobile phones.
 
 ### Website Running Instructions:
-- Open [my link] (https://gvsrohita.github.io/Project_Pam/), preferably in **Google Chrome** or **Mozilla Firefox**
+- Download the **Project_Pam** repository into your localhost
+- Ensure that the downloaded directory structure is not disturbed.
+- Then, run the index.html in a web browser (Preferably **Google chrome**) to unleash the magic!
 - You will find a map of my home town _Visakhapatnam_ and the prominent places in and around it in the shape of _markers_
 - You can filter the places based on the part of name-string of the locations in the _input box_ with the tag _Filter places based on the name of location_
 - By clicking on any of the list items filtered or any of the many _markers_ that you see on the map, you can get information about that particular place, and also its **Streetview**, provided it is facilitated by Google
@@ -16,12 +18,14 @@ In my project, I have used `JavaScript`, `jQuery`, `KnockoutJS`, `Google Maps AP
 - You can visit my Map on any handy device available near you, be it _Desktop/Laptop_, _iPad_ or _Mobile_
 - The **fun part** in this app is described below in detail
 
-### The Fun Part:
+#### The Fun Part:
 You can add your own locations (address, title and category of the location) to the map by following these steps:
 - Enter the Address, Name and Category (Drop down Box) of your location in the three boxes visible at the bottom (If they are not visible on the screen, then either scroll down or click `The Fun part!Click here to add your locations` button)
 - Then `Click` the button to see your location added on my map
 - To start, enter **Taj Mahal, Agra, India** in _Address_, **Taj Mahal** in _Name_, **Heritage** in _Category_ and then **click** the _Button_ to add the geographical-marker for the symbol of the epitome of the most important emotion ever assembled by God, that is **Love!** . In addition, you can know a lot about it through innumerable wikipedia links that this website opens
 - Isn't it fun?!
+
+#### I personally prefer to open this web-page directly from Github using [my link] (https://gvsrohita.github.io/Project_Pam/)
 
 ### What I did to achieve the objectives of this project:
 - I used **html**, **javascript** and **css** to create this _web-site_
