@@ -37,7 +37,9 @@ var LocationLatLng = function (lat_, lng_) {
 //title_ - title of the place
 //cat_ - category of the place
 //locationLatLng_ - object of LocationLatLng
-var Location = function (title_, cat_, locationLatLng_) {
+/************************************added idKey*******************************/
+var Location = function (keyId_, title_, cat_, locationLatLng_) {
+    this.keyId = keyId_;
     this.title = title_;
     this.cat = cat_;
     this.location = locationLatLng_;
@@ -50,16 +52,17 @@ var chosenLocation;
 //mentioned in the rubric that there should be atleast 5 locations. I have 
 //identified a total of 9 locations of varying interests of my neighborhood
 //as can be seen here.
+/********************added keyId for the markers*******************************/
 var locations = [
-    {title: 'Kailash Giri', cat: 'Outing', location: {lat: 17.7492, lng: 83.3422}},
-    {title: 'Simhachalam', cat: 'Pilgrim Center', location: {lat: 17.7665, lng: 83.2506}},
-    {title: 'Indira Gandhi Zoological Park', cat: 'Outing', location: {lat: 17.7686, lng: 83.3445}},
-    {title: 'Visakha Museum', cat: 'Heritage', location: {lat: 17.7206, lng: 83.3342}},
-    {title: 'Sivaji Park', cat: 'Park', location: {lat: 17.7374, lng: 83.3312}},
-    {title: 'Rushikonda Beach', cat: 'Sun n Sand', location: {lat: 17.7820, lng: 83.3853}},
-    {title: 'MFC Restaurant', cat: 'Hotel', location: {lat: 17.7115, lng: 83.3195}},
-    {title: 'Hotel Daspalla', cat: 'Hotel', location: {lat: 17.7106556, lng: 83.3004312}},
-    {title: 'Vizag Steel Plant', cat: 'Industry', location: {lat: 17.6333889, lng: 83.1706543}}
+    {keyId: 0, title: 'Kailash Giri', cat: 'Outing', location: {lat: 17.7492, lng: 83.3422}},
+    {keyId: 1, title: 'Simhachalam', cat: 'Pilgrim Center', location: {lat: 17.7665, lng: 83.2506}},
+    {keyId: 2, title: 'Indira Gandhi Zoological Park', cat: 'Outing', location: {lat: 17.7686, lng: 83.3445}},
+    {keyId: 3, title: 'Visakha Museum', cat: 'Heritage', location: {lat: 17.7206, lng: 83.3342}},
+    {keyId: 4, title: 'Sivaji Park', cat: 'Park', location: {lat: 17.7374, lng: 83.3312}},
+    {keyId: 5, title: 'Rushikonda Beach', cat: 'Sun n Sand', location: {lat: 17.7820, lng: 83.3853}},
+    {keyId: 6, title: 'MFC Restaurant', cat: 'Hotel', location: {lat: 17.7115, lng: 83.3195}},
+    {keyId: 7, title: 'Hotel Daspalla', cat: 'Hotel', location: {lat: 17.7106556, lng: 83.3004312}},
+    {keyId: 8, title: 'Vizag Steel Plant', cat: 'Industry', location: {lat: 17.6333889, lng: 83.1706543}}
 ];
 
 //Array to hold the locations. To be bound in viewmodal
@@ -76,7 +79,7 @@ var errorMessage;
 //**********************Wikipedia related declarations *************************
 //
 //For the Wikipedia title and url
-var wikiLink = function (title_, URL_) {
+var WikiLink = function (title_, URL_) {
     this.title = title_;
     this.url = URL_;
 };
@@ -127,6 +130,9 @@ function addMarkers() {
         bounds.extend(markers[i].position);
     }
     map.fitBounds(bounds);
+    google.maps.event.addDomListener(window, 'resize', function () {
+        map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
+    });
 }
 
 //to hide all the existing map markers. It is called before a totally new set of
@@ -217,7 +223,8 @@ function populateInfoWindow(marker, infowindow) {
 //************************ Knockout function for ViewModal *********************
 //
 //Controlling the ViewModal with the help of Knockout framework.
-var viewModal = function () {
+//Note: The code quality issue as suggested in first review comments addressed
+var ViewModal = function () {
     self = this;
     //Initializing all the KO Variables (The ones that are bound to DOM
     //Elements)
@@ -228,8 +235,12 @@ var viewModal = function () {
     errorMessage = ko.observable('');
     //Initializing all the KO Observable Arrays. (The ones that are bound 
     //to DOM Lists.
-    myObservableArray = ko.observableArray(locations);
+    myObservableArray = ko.observableArray([]);
     wikiLinksArrayKO = ko.observableArray([]);
+
+    for (var i = 0; i < locations.length; i++) {
+        myObservableArray.push(locations[i]);
+    }
 
     //KO Function for applying filtering of map locations 
     self.populatePlaceTitles = function () {
@@ -238,9 +249,14 @@ var viewModal = function () {
             var n = locations[k].title.toLowerCase().search(filterTitle().toLowerCase());
             if (n >= 0) {
                 myObservableArray.push(locations[k]);
+                //Note: Following REQUIRED issue raised in first review addressed ******
+                //
+                /*Filter function should show / hide markers instead of re-creating them.*/
+                markers[k].setVisible(true);
+            } else {
+                markers[k].setVisible(false);
             }
         }
-        addMarkers();
     };
 
     //KO Function for showing information window of the chosen location
@@ -248,18 +264,25 @@ var viewModal = function () {
     //chosenLoc - chosenLocation object
     self.showInfoWindow = function (chosenLoc) {
         chosenLocation = chosenLoc;
-        setMarker(chosenLocation);
-        //self.wikiLinks = ko.observableArray([]);
+        //Note: Following REQUIRED issue raised in first review addressed ******
+        //
+        /* Clicking on a location list is creating new marker - it shouldn't do so.         
+         * App should look for the clicked location's associated marker to activate 
+         * it instead of creating a new one.
+         */
+        marker = markers[chosenLoc.keyId];
+        //Note: Following REQUIRED issue raised in first review addressed ******
+        /*
+         * The App Functionality rubric requires map markers to animate when it 
+         * is clicked or when associated location in the list is clicked 
+         * (eg. bouncing, changing colour) to indicate its active state. 
+         * This hasn't been implemented. Please add this feature.
+         */
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function () {
+            marker.setAnimation(null);
+        }, 2000);
         populateInfoWindow(marker, largeInfowindow);
-        //to show the related wikipedia links(as third party API)
-        //self.bool1 = getWikiLinks(chosenLocation.title);
-    };
-
-    //for opening wikilink
-    //Argument:
-    //chosenLoc - chosenLocation object
-    self.openURL = function (chosenLoc) {
-        window.open(chosenLoc.url, '_blank');
     };
 
     //to move to specific DOM element
@@ -291,15 +314,26 @@ function getWikiLinks(title_) {
         dataType: 'jsonp',
         success: function (response) {
             wikiLinksArray = [];
-            var articleList = response[1];
-            for (var i = 0; i < articleList.length; i++) {
-                articleStr = articleList[i];
-                var urlLocation = 'https://en.wikipedia.org/wiki/' + articleStr;
-                var newWikiLink = new wikiLink(articleStr, urlLocation);
-                wikiLinksArray.push(newWikiLink);
-            }
             wikiLinksArrayKO([]);
-            wikiLinksArrayKO(wikiLinksArray);
+            var articleList = response[1];
+            //Note: The Sanity Check as suggested in first review comments addressed
+            if (articleList.length === 0) {
+                composeErrorMsg('No wikipedia links available for the chosen location');
+            } else {
+                composeErrorMsg('');
+                goToDomLocation('.container', 'slow');
+                for (var i = 0; i < articleList.length; i++) {
+                    if (articleList[i] === '') {
+                        composeErrorMsg('Wikipedia data is not available');
+                    } else {
+                        articleStr = articleList[i];
+                        var urlLocation = 'https://en.wikipedia.org/wiki/' + articleStr;
+                        var newWikiLink = new WikiLink(articleStr, urlLocation);
+                        wikiLinksArray.push(newWikiLink);
+                    }
+                }
+                wikiLinksArrayKO(wikiLinksArray);
+            }
             clearTimeout(wikiRequestTimeout);
         },
         //Graceful exit when encounters error with relevant message
@@ -328,11 +362,13 @@ function formLocation(address_, title_, category_) {
         geocoder.geocode({'address': address_}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 errorMessage('');
+                var keyId_ = locations.length;
                 var latitude = results[0].geometry.location.lat();
                 var longitude = results[0].geometry.location.lng();
                 var locationLatLng = new LocationLatLng(latitude, longitude);
-                var location = new Location(title_, category_, locationLatLng);
-                //Pushing the location thus formed into the KO databound array of locations
+                var location = new Location(keyId_, title_, category_, locationLatLng);
+                //Pushing the location thus formed into the locations arrays
+                locations.push(location);
                 myObservableArray.push(location);
                 //Extending map bounds
                 bounds.extend(locationLatLng);
@@ -353,7 +389,7 @@ function formLocation(address_, title_, category_) {
     }
 }
 
-//***************************Other miscellaneous functions *********************
+//************************** Other miscellaneous functions *********************
 //
 //To display an error message to avoid inconvenience to users
 function composeErrorMsg(errMsg_) {
@@ -367,10 +403,20 @@ function goToDomLocation(domLocation_, speed_) {
     $('html, body').animate({scrollTop: $(domLocation_).offset().top}, speed_);
 }
 
+//Note: The following REQUIRED issue raised in First review addressed 
+//
+/*The Asynchronous Data Usage also requires map to be also provided 
+ * with a fallback error handling method*/
+function googleErrorHandling() {
+    composeErrorMsg('Error while loading Google maps, please check your Internet connection or mail the issue to me (gvsrohita@gmail.com)');
+}
+
 //********************** Function call at the beginning ************************
 //
 //applying the bindings using KO based viewmodal
-ko.applyBindings(new viewModal());
+/*************changed the name from viewModal to ViewModal, 13-12-16***********/
+ko.applyBindings(new ViewModal());
+/**********************************end 13-12-16********************************/
 
 //To enforce a delay of about 3 seconds to scroll to page top. The delay is 
 //necessitated for Google api takes some time to populate all the elements.
