@@ -235,6 +235,10 @@ ul li:hover {
     text-align: right;
 }
 
+.wiki-href:hover {
+    color: yellow;
+}
+
 .wiki-links {
     margin: 0;
     padding: 0;

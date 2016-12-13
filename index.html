@@ -59,9 +59,8 @@
                             <ul id="wikipedialinks" data-bind="foreach: wikiLinksArrayKO">
                                 <li>
                                     <!--Knockout features-->
-                                    <!--Click Function - parent.openURL-->
-                                    <!--span data-bind="text: $data.title, click: $parent.openURL.bind($data)"></span-->
-                                    <a data-bind="attr: { href: $data.url, title: $data.title}" target="_blank"><span data-bind="text: $data.title"></span></a>
+                                    <!--Note: The suggestion in first review about usage of <a> element and attr binding implemented -->
+                                    <a class="wiki-href" data-bind="attr: { href: $data.url, title: $data.title}" target="_blank"><span data-bind="text: $data.title"></span></a>
                                 </li>
                             </ul>
                         </div>
