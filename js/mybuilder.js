@@ -79,7 +79,7 @@ var errorMessage;
 //**********************Wikipedia related declarations *************************
 //
 //For the Wikipedia title and url
-var wikiLink = function (title_, URL_) {
+var WikiLink = function (title_, URL_) {
     this.title = title_;
     this.url = URL_;
 };
@@ -130,6 +130,9 @@ function addMarkers() {
         bounds.extend(markers[i].position);
     }
     map.fitBounds(bounds);
+    google.maps.event.addDomListener(window, 'resize', function () {
+        map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
+    });
 }
 
 //to hide all the existing map markers. It is called before a totally new set of
@@ -220,7 +223,7 @@ function populateInfoWindow(marker, infowindow) {
 //************************ Knockout function for ViewModal *********************
 //
 //Controlling the ViewModal with the help of Knockout framework.
-/***********************changed name from viewModal to ViewModal***************/
+//Note: The code quality issue as suggested in first review comments addressed
 var ViewModal = function () {
     self = this;
     //Initializing all the KO Variables (The ones that are bound to DOM
@@ -232,8 +235,12 @@ var ViewModal = function () {
     errorMessage = ko.observable('');
     //Initializing all the KO Observable Arrays. (The ones that are bound 
     //to DOM Lists.
-    myObservableArray = ko.observableArray(locations);
+    myObservableArray = ko.observableArray([]);
     wikiLinksArrayKO = ko.observableArray([]);
+
+    for (var i = 0; i < locations.length; i++) {
+        myObservableArray.push(locations[i]);
+    }
 
     //KO Function for applying filtering of map locations 
     self.populatePlaceTitles = function () {
@@ -242,18 +249,14 @@ var ViewModal = function () {
             var n = locations[k].title.toLowerCase().search(filterTitle().toLowerCase());
             if (n >= 0) {
                 myObservableArray.push(locations[k]);
-                /**************************13/12/2016-begin****************************/
-                //markers[k].setMap(map);
+                //Note: Following REQUIRED issue raised in first review addressed ******
+                //
+                /*Filter function should show / hide markers instead of re-creating them.*/
                 markers[k].setVisible(true);
             } else {
-                //markers[k].setMap(null);
                 markers[k].setVisible(false);
             }
-            /**************************13/12/2016-end****************************/
         }
-        /**************************13/12/2016-begin****************************/
-        //addMarkers();
-        /**************************13/12/2016-end****************************/
     };
 
     //KO Function for showing information window of the chosen location
@@ -261,27 +264,27 @@ var ViewModal = function () {
     //chosenLoc - chosenLocation object
     self.showInfoWindow = function (chosenLoc) {
         chosenLocation = chosenLoc;
-        /**************************13/12/2016-begin****************************/
-        //setMarker(chosenLocation);
+        //Note: Following REQUIRED issue raised in first review addressed ******
+        //
+        /* Clicking on a location list is creating new marker - it shouldn't do so.         
+         * App should look for the clicked location's associated marker to activate 
+         * it instead of creating a new one.
+         */
         marker = markers[chosenLoc.keyId];
+        //Note: Following REQUIRED issue raised in first review addressed ******
+        /*
+         * The App Functionality rubric requires map markers to animate when it 
+         * is clicked or when associated location in the list is clicked 
+         * (eg. bouncing, changing colour) to indicate its active state. 
+         * This hasn't been implemented. Please add this feature.
+         */
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function () {
             marker.setAnimation(null);
         }, 2000);
-        /**************************13/12/2016-end******************************/
         populateInfoWindow(marker, largeInfowindow);
-        //to show the related wikipedia links(as third party API)
-        //self.bool1 = getWikiLinks(chosenLocation.title);
     };
 
-    //for opening wikilink
-    //Argument:
-    //chosenLoc - chosenLocation object
-    /**************************start 13-12-16***********************************
-    self.openURL = function (chosenLoc) {
-        window.open(chosenLoc.url, '_blank');
-    };
-******************************end**********************************************/
     //to move to specific DOM element
     //Argument:
     //domElement - DOM Element (It can be either id or class name or even tag)
@@ -311,15 +314,26 @@ function getWikiLinks(title_) {
         dataType: 'jsonp',
         success: function (response) {
             wikiLinksArray = [];
-            var articleList = response[1];
-            for (var i = 0; i < articleList.length; i++) {
-                articleStr = articleList[i];
-                var urlLocation = 'https://en.wikipedia.org/wiki/' + articleStr;
-                var newWikiLink = new wikiLink(articleStr, urlLocation);
-                wikiLinksArray.push(newWikiLink);
-            }
             wikiLinksArrayKO([]);
-            wikiLinksArrayKO(wikiLinksArray);
+            var articleList = response[1];
+            //Note: The Sanity Check as suggested in first review comments addressed
+            if (articleList.length === 0) {
+                composeErrorMsg('No wikipedia links available for the chosen location');
+            } else {
+                composeErrorMsg('');
+                goToDomLocation('.container', 'slow');
+                for (var i = 0; i < articleList.length; i++) {
+                    if (articleList[i] === '') {
+                        composeErrorMsg('Wikipedia data is not available');
+                    } else {
+                        articleStr = articleList[i];
+                        var urlLocation = 'https://en.wikipedia.org/wiki/' + articleStr;
+                        var newWikiLink = new WikiLink(articleStr, urlLocation);
+                        wikiLinksArray.push(newWikiLink);
+                    }
+                }
+                wikiLinksArrayKO(wikiLinksArray);
+            }
             clearTimeout(wikiRequestTimeout);
         },
         //Graceful exit when encounters error with relevant message
@@ -353,7 +367,8 @@ function formLocation(address_, title_, category_) {
                 var longitude = results[0].geometry.location.lng();
                 var locationLatLng = new LocationLatLng(latitude, longitude);
                 var location = new Location(keyId_, title_, category_, locationLatLng);
-                //Pushing the location thus formed into the KO databound array of locations
+                //Pushing the location thus formed into the locations arrays
+                locations.push(location);
                 myObservableArray.push(location);
                 //Extending map bounds
                 bounds.extend(locationLatLng);
@@ -388,6 +403,14 @@ function goToDomLocation(domLocation_, speed_) {
     $('html, body').animate({scrollTop: $(domLocation_).offset().top}, speed_);
 }
 
+//Note: The following REQUIRED issue raised in First review addressed 
+//
+/*The Asynchronous Data Usage also requires map to be also provided 
+ * with a fallback error handling method*/
+function googleErrorHandling() {
+    composeErrorMsg('Error while loading Google maps, please check your Internet connection or mail the issue to me (gvsrohita@gmail.com)');
+}
+
 //********************** Function call at the beginning ************************
 //
 //applying the bindings using KO based viewmodal
@@ -398,8 +421,3 @@ ko.applyBindings(new ViewModal());
 //To enforce a delay of about 3 seconds to scroll to page top. The delay is 
 //necessitated for Google api takes some time to populate all the elements.
 window.setTimeout(goToDomLocation('.container', 'slow'), 3000);
-
-/**************************added after resubmisson*****************************/
-function googleErrorHandling() {
-    composeErrorMsg('Error while loading Google maps, please check your Internet connection or mail the issue to me (gvsrohita@gmail.com)');
-}
