@@ -123,13 +123,17 @@
                 </div>
             </footer>
         </div>
-        <!--For page speed optimization, all the script tags are being loaded at the bottom of the page-->
+        <!--Note: The 'Review Suggestion' related to Page Speed Optimization addressed-->
+        <!--All scripts should be at the bottom of the HTML body for Page Speed Optimization-->
         <script src="js/jquery-3.1.1.min.js"></script>
         <script src="bootstrap/bootstrap.min.js"></script>
         <script src="js/knockout-3.4.1.js"></script>
         <!--To load the custom coded javascript file-->
         <script src="js/myBuilder.js"></script>
         <!--To load the google maps API-->
+        <!--Note: The following REQUIRED issues raised in First review addressed-->        
+        <!--The Asynchronous Data Usage also requires map to be also provided with a fallback error handling method-->
+        <!--We need to request Google Map API after all other JS scripts have finished loading to avoid race condition issue-->
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8UsJDFjlef35eUrO7io5FsBxIorvXm5M&v=3&callback=initMap" onerror="googleErrorHandling()">
         </script>
