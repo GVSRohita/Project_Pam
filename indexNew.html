@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Neighborhood map </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--The necessary links required to load the application-->
+        <link href="bootstrap/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/styleNew.css" rel="stylesheet">
+        <link href="css/responsive.css" rel="stylesheet">
+    </head>
+    <body>
+        <!--The bootstrap functionality-->
+        <div class="container">
+            <header>
+                <div class="row">
+                    <div class="col-md-12 heading"><h1>My Neighbourhood Map</h1></div>
+                </div>
+            </header>
+            <!-- The Help Section -->
+            <section>
+                <div class="row">
+                    <div class="col-md-4 help-row"><table width="40px" cellpadding="0" cellspacing="0" border="0" style="float: left;"><tr><td width="100%" align="center" valign="middle"><img id="idHelpIcon" style="height: 20px;" src="images/hamburger.png"/></td></tr></table></div>
+                    <div class="col-md-8 help-row sub-heading" style="color: blue; text-align: right"><h4><em>You can add yours too, here 😉&nbsp;&nbsp;</em></h4></div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="idDivHelp" class="help-box display-none float-left">
+                            <h4 style="margin: 10px 0 10px 0;"><span class='float-left'>Website Running Instructions:</span></h4>
+                            <ul id="ID_UL_HELPLINES" data-bind="foreach: helpLinesKO">
+                                <li>
+                                    <!--Knockout features-->
+                                    <!--Click function - parent.showInfoWindow-->
+                                    <span data-bind="text: $data.helpline"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="idDivWiki" class="wiki-box display-none float-right">
+                            <div>
+                                <div style="width: 100%;">
+                                    <span style="font-weight: 600; font-size: 18px; margin: 10px 0 10px 0; width: 80%">Wikipedia Links</span><table width="40px" cellpadding="0" cellspacing="0" border="0" style="float: right;"><tr><td width="100%" align="center" valign="middle"><img id="idWikiIcon" style="height: 20px;" src="images/hamburger.png"/></td></tr></table>
+                                </div>
+                                <!--Knockout features-->
+                                <!--data Array - wikiLinksArrayKO-->
+                                <ul data-bind="foreach: wikiLinksArrayKO">
+                                    <li>
+                                        <!--Knockout features-->
+                                        <!--Note: The suggestion in first review about usage of <a> element and attr binding implemented -->
+                                        <a class="wiki-href" data-bind="attr: { href: $data.url, title: $data.title}" target="_blank"><span data-bind="text: $data.title"></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <main>
+                <div class="col-md-9 col-sm-12 col-xs-12 map-class">
+                    <!--For placing the Google Maps-->
+                    <div id="map" class="map-class"></div>
+                </div>
+            </main>
+            <section>
+                <div class="row">
+                    <div class="col-md-3 col-sm-12 col-xs-12 info-box">
+                        <div class="head-prom-places">
+                            <h4 id="idPlaces">My Neighbourhood Places</h4>
+                        </div>
+                        <div id ="idDivListPlaces">
+                            <!--List for holding titles of places (original as well as filtered) to be marked-->
+                            <!--Knockout features-->
+                            <!--data Array - myObservableArray-->
+                            <ul id="idListPlaces" data-bind="foreach: myObservableArray">
+                                <li>
+                                    <!--Knockout features-->
+                                    <!--Click function - parent.showInfoWindow-->
+                                    <span data-bind="text: $data.title, click: $parent.showInfoWindow.bind($data)"></span>&nbsp;<span id="idCat" data-bind="text: ' - ' +$data.cat, click: $parent.showInfoWindow.bind($data)"></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <!--input box for key word for filtering. It uses knockout.js features for data-binding-->
+                            <!--Knockout features-->
+                            <!--data field - filterTitle-->
+                            <!--Keyup function - populatePlaceTitles-->
+                            <input id="idFilter" type="text" placeholder="Filter the list based on name of location"  data-bind="value: filterTitle, valueUpdate: 'keyup', event: { keyup: populatePlaceTitles }" autocomplete="off"/>
+                        </div>
+                        <!--My info-->
+                        <div class="col-md-12 col-sm-12 col-xs-12" id="authorDetails"  style="background-color: #204d74; color: white;">
+                            <h5>Built by <a href="https://gvsrohita.github.io/OnlineResume/" target="_blank"><strong>Venkata Sri Rohita Goparaju!</strong></a></h5>
+                        </div>                    
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <h5 style="color: white;">The Fun Part! (Align your neighborhood with mine)</h4>
+                        </div>
+                        <div id="idDivYourAddress" class="col-md-12 col-sm-12 col-xs-12">
+                            <!--Knockout features-->
+                            <!--Data: yourAddress-->
+                            <input id="idYourAddress" type="text" placeholder="Your Neighborhood Address" data-bind="value: yourAddress" autocomplete="off"/>
+                        </div>                    
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <!--Knockout features-->
+                            <!--Data: yourAddressTitle-->
+                            <input id="idYourTitle" type="text" placeholder="Name of the location" data-bind="value: yourAddressTitle" autocomplete="off"/>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <!--Knockout features-->
+                            <!--Data: yourCategory-->
+                            <select id="idYourCategory" data-bind="value: yourCategory" autocomplete="off">
+                                <option value="Pilgrim Center">Pilgrim Center</option>
+                                <option value="Hotel">Hotel</option>
+                                <option value="Outing">Outing</option>
+                                <option value="Heritage">Heritage</option>
+                                <option value="Park">Park</option>
+                                <option value="Sun n Sand">Sun n Sand</option>
+                                <option value="Industry">Industry</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <!--Knockout features-->
+                            <!--Click: addYourddress-->
+                            <button id="idBtnYourAddress" class="my-button" data-bind="click: addYourddress">Click</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <!--The input box which displays the locations-->
+                <div class="row">
+
+                </div>
+            </section>
+            <!--To display the error message, in case of any inconvenience while loading the wikipedia links-->
+            <footer>
+                <div class="row">
+                    <div id="idDivErrorMsg" class="col-md-12 col-sm-12 col-xs-12">
+                        <!--Knockout features-->
+                        <!--Data: errorMessage-->
+                        <span id="idMsg" data-bind="text: errorMessage"></span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!--Note: The 'Review Suggestion' related to Page Speed Optimization addressed-->
+        <!--All scripts should be at the bottom of the HTML body for Page Speed Optimization-->
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="bootstrap/bootstrap.min.js"></script>
+        <script src="js/knockout-3.4.1.js"></script>
+        <!--To load the custom coded javascript file-->
+        <script src="js/myBuilderNew.js"></script>
+        <!--To load the google maps API-->
+        <!--Note: The following REQUIRED issues raised in First review addressed-->        
+        <!--The Asynchronous Data Usage also requires map to be also provided with a fallback error handling method-->
+        <!--We need to request Google Map API after all other JS scripts have finished loading to avoid race condition issue-->
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8UsJDFjlef35eUrO7io5FsBxIorvXm5M&v=3&callback=initMap" onerror="googleErrorHandling()">
+        </script>
+        <script>
+            window.setTimeout(goToDomLocation('.container', 'slow'), 3000);
+        </script>
+    </body>
+</html>
