@@ -1,0 +1,72 @@
+/*14-12-16*/
+
+.help-row {
+    padding: 3px 0 0 0;
+    height: 30px;
+    border-bottom: #fff thin groove;   
+    background-color: #A1D0F4;    
+}
+
+.help-box {
+    position: absolute;
+    padding: 2px 0 0 10px;
+    z-index:1000000 !important;
+    width: 300px;
+    height: 500px;    
+    left:0px;
+    float: left;
+    overflow-y: scroll;
+    border-width: 2px;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    background-color: #204d74;
+    box-shadow: 10px 10px 10px black;
+    color: white;
+    /*background-image: url(../images/home-page-pic.png);*/
+}
+
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
+}
+
+float-right {
+    float: right;
+}
+
+float-left {
+    float: left;
+}
+
+.wiki-box {
+    position: absolute;
+    padding: 2px 0 0 10px;
+    z-index:1000000 !important;
+    width: 295px;
+    height: 335px;
+    right: 0;
+    float: left;
+    overflow-y: scroll;
+    border-width: 2px;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    background-color: #204d74;
+    box-shadow: 10px 10px 10px black;
+    color: white;
+    /*background-image: url(../images/home-page-pic.png);*/
+}
+
+#idDivListPlaces {
+    padding: 2px 0 0 10px;
+    text-align: left;
+    font-size: 16px;
+    background-color: #204d74;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    overflow-y: scroll;    
+    height: 275px;
+}
