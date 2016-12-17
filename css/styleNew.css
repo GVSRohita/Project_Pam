@@ -70,3 +70,7 @@ float-left {
     overflow-y: scroll;    
     height: 275px;
 }
+
+.sub-heading {    
+    cursor: pointer;
+}
